@@ -1,6 +1,4 @@
-import styled from 'styled-components'
-
-export const FooterMain = styled.div`
+.FooterMain {
   background-color: #0f172a;
   width: 100%;
   margin-top: 50px;
@@ -11,41 +9,52 @@ export const FooterMain = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
-export const FooterLogoCon = styled.div`
+}
+.FooterLogoCon {
   display: flex;
   align-items: center;
   font-family: 'DM Sans';
   font-size: 32px;
   font-style: italic;
   font-weight: 700;
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
+  .FooterLogoCon {
     font-size: 20px;
   }
-`
-export const FooterLogo = styled.img`
+}
+
+.FooterLogo {
   width: 80px;
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
+  .FooterLogo {
     width: 40px;
   }
-`
-export const Motto = styled.p`
+}
+.Motto {
   font-family: 'DM Sans';
   font-weight: 400;
   font-size: 24px;
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
+  .Motto {
     font-size: 14px;
     align-content: center;
   }
-`
-export const SocialNetworkIcon = styled.div`
+}
+
+.SocialNetworkIcon {
   font-size: 40px;
   display: flex;
   justify-content: space-between;
   width: 30%;
   margin-top: 30px;
-  @media (max-width: 768px) {
+}
+@media (max-width: 768px) {
+  .SocialNetworkIcon {
     width: 60%;
     font-size: 30px;
   }
-`
+}
+
