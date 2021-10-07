@@ -2,18 +2,7 @@ import {Component} from 'react'
 
 import {BiRupee} from 'react-icons/bi'
 import {AiFillStar} from 'react-icons/ai'
-
-import {
-  ItemMain,
-  ItemImg,
-  ItemDetailsCon,
-  RAndR,
-  ItemName,
-  Cost,
-  Rating,
-  AddButton,
-  AddCon,
-} from './styledComponents'
+import './index.css'
 
 import MainContext from '../../context/MainContext'
 import Counter from '../CounterCount'
@@ -23,6 +12,7 @@ class FoodItemDetails extends Component {
     <MainContext.Consumer>
       {value => {
         const {cartList, increaseCount, decreaseCount, onAddToCart} = value
+        localStorage.clear()
         const AddItem = () => {
           const {item} = this.props
           const newItem = {
@@ -54,9 +44,9 @@ class FoodItemDetails extends Component {
           )
         }
         return (
-          <AddButton onClick={AddItem} type="button">
-            ADD
-          </AddButton>
+          <button className="AddButton" onClick={AddItem} type="button">
+            Add
+          </button>
         )
       }}
     </MainContext.Consumer>
@@ -65,19 +55,23 @@ class FoodItemDetails extends Component {
   render() {
     const {item} = this.props
     return (
-      <ItemMain>
-        <ItemImg alt="foodItem" src={item.imageUrl} />
-        <ItemDetailsCon>
-          <ItemName>{item.name}</ItemName>
-          <RAndR>
-            <BiRupee /> <Cost>{item.cost}</Cost>
-          </RAndR>
-          <RAndR>
-            <AiFillStar color="#FFCC00" /> <Rating>{item.rating}</Rating>
-          </RAndR>
-          <AddCon>{this.renderCount(item.name)}</AddCon>
-        </ItemDetailsCon>
-      </ItemMain>
+      <div className="ItemMain">
+        <img className="ItemImg" alt="foodItem" src={item.imageUrl} />
+        <div className="ItemDetailsCon">
+          <h1 className="ItemName">{item.name}</h1>
+          <div className="RAndR">
+            <p className="Cost">
+              <BiRupee />
+              {item.cost}
+            </p>
+          </div>
+          <div className="RAndR">
+            <AiFillStar color="#FFCC00" />{' '}
+            <p className="Rating">{item.rating}</p>
+          </div>
+          <div className="AddCon">{this.renderCount(item.name)}</div>
+        </div>
+      </div>
     )
   }
 }
