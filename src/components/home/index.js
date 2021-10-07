@@ -10,31 +10,7 @@ import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io'
 import Header from '../Header'
 import Footer from '../footer'
 
-import {
-  HomeMain,
-  DealsMain,
-  OfferImg,
-  OffersMain,
-  OffersList,
-  OffersLoader,
-  DealsHeading,
-  Caption,
-  SortCon,
-  SelectAndSort,
-  Select,
-  Item,
-  RestaurantImage,
-  RestaurantItemCon,
-  RestaurantName,
-  FastFood,
-  RatingCon,
-  DetailsCon,
-  Rating,
-  RestaurantsCon,
-  PageNav,
-  PageBtn,
-  RestaurantsMainCon,
-} from './styledComponents'
+import './index.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -92,6 +68,8 @@ class Home extends Component {
         id: each.id,
         name: each.name,
         rating: each.user_rating.rating,
+        cuisine: each.cuisine,
+        totalReviews: each.user_rating.total_reviews,
       }))
       this.setState({
         restaurantsList: formattedData,
@@ -134,17 +112,17 @@ class Home extends Component {
     }
     const {offersList} = this.state
     return (
-      <OffersMain>
-        <OffersList>
+      <div className="OffersMain">
+        <div className="OffersList">
           <Slider {...settings}>
             {offersList.map(each => (
               <li key={each.id}>
-                <OfferImg alt="offer" src={each.imageUrl} />
+                <img className="OfferImg" alt="offer" src={each.imageUrl} />
               </li>
             ))}
           </Slider>
-        </OffersList>
-      </OffersMain>
+        </div>
+      </div>
     )
   }
 
@@ -155,11 +133,11 @@ class Home extends Component {
         return this.renderOfferSuccess()
       case apiStatusConstants.inProgress:
         return (
-          <OffersLoader data-testid="restaurants-offers-loader">
+          <div className="OffersLoader" data-testid="restaurants-offers-loader">
             <div className="products-loader-container">
               <Loader type="Oval" color="#F7931E" height="50" width="50" />
             </div>
-          </OffersLoader>
+          </div>
         )
       case apiStatusConstants.failure:
         return (
@@ -200,30 +178,35 @@ class Home extends Component {
   renderRestaurantListSuccess = () => {
     const {restaurantsList} = this.state
     return (
-      <RestaurantsMainCon>
-        <RestaurantsCon>
+      <div className="RestaurantsMainCon">
+        <ul className="RestaurantsCon">
           {restaurantsList.map(each => (
-            <Item data-testid="restaurant-item" key={each.id}>
+            <li className="Item" data-testid="restaurant-item" key={each.id}>
               <Link
                 style={{textDecoration: 'none'}}
                 to={`/restaurant/${each.id}`}
               >
-                <RestaurantItemCon>
-                  <RestaurantImage alt="restaurant" src={each.imageUrl} />
-                  <DetailsCon>
-                    <RestaurantName>{each.name}</RestaurantName>
-                    <FastFood>Fast Food</FastFood>
-                    <RatingCon>
+                <div className="RestaurantItemCon">
+                  <img
+                    className="RestaurantImage"
+                    alt="restaurant"
+                    src={each.imageUrl}
+                  />
+                  <div className="DetailsCon">
+                    <h1 className="RestaurantName">{each.name}</h1>
+                    <p className="FastFood">{each.cuisine}</p>
+                    <div className="RatingCon">
                       <AiFillStar color="#FFCC00" />{' '}
-                      <Rating>{each.rating}</Rating>
-                    </RatingCon>
-                  </DetailsCon>
-                </RestaurantItemCon>
+                      <p className="Rating">{each.rating}</p>
+                    </div>
+                    <p className="Rating">Reviews: {each.totalReviews}</p>
+                  </div>
+                </div>
               </Link>
-            </Item>
+            </li>
           ))}
-        </RestaurantsCon>
-      </RestaurantsMainCon>
+        </ul>
+      </div>
     )
   }
 
@@ -234,11 +217,11 @@ class Home extends Component {
         return this.renderRestaurantListSuccess()
       case apiStatusConstants.inProgress:
         return (
-          <OffersLoader data-testid="restaurants-list-loader">
+          <div className="OffersLoader" data-testid="restaurants-list-loader">
             <div className="products-loader-container">
               <Loader type="Oval" color="#F7931E" height="50" width="50" />
             </div>
-          </OffersLoader>
+          </div>
         )
       case apiStatusConstants.failure:
         return (
@@ -259,52 +242,61 @@ class Home extends Component {
   render() {
     const {initialSortValue, activePage} = this.state
     return (
-      <HomeMain>
-        <Header />
+      <div className="HomeMain">
+        <Header activeTab="Home" />
         {this.renderOffers()}
-        <DealsMain>
-          <DealsHeading>Popular Restaurants</DealsHeading>
-          <SelectAndSort>
-            <Caption>
+        <div className="DealsMain">
+          <h1 className="DealsHeading">Popular Restaurants</h1>
+          <div className="SelectAndSort">
+            <p className="Caption">
               Select Your favourite restaurant special dish and make your day
               happy...
-            </Caption>
-            <SortCon>
+            </p>
+            <div className="SortCon">
               <MdSort color="#475569" />
-
-              <Select onChange={this.onChangeSort} value={initialSortValue}>
+              <p className="Caption">Sort by </p>
+              <select
+                className="Select"
+                onChange={this.onChangeSort}
+                value={initialSortValue}
+              >
                 {sortByOptions.map(each => (
                   <option value={each.value} key={each.id}>
-                    {`Sort by ${each.displayText}`}
+                    {each.displayText}
                   </option>
                 ))}
-              </Select>
-            </SortCon>
-          </SelectAndSort>
+              </select>
+            </div>
+          </div>
           <hr />
           {this.renderRestaurantsList()}
-        </DealsMain>
-        <PageNav>
-          <PageBtn
+        </div>
+        <div className="PageNav">
+          <button
+            className="PageBtn"
             data-testid="pagination-left-button"
             onClick={this.onBackward}
             type="button"
           >
             <IoIosArrowBack />
-          </PageBtn>
-          <p data-testid="active-page-number">{activePage} of 20</p>
-          <PageBtn
+          </button>
+          <h1 className="page " data-testid="active-page-number">
+            {activePage} of 20
+          </h1>
+          <button
+            className="PageBtn"
             data-testid="pagination-right-button"
             onClick={this.onForward}
             type="button"
           >
             <IoIosArrowForward />
-          </PageBtn>
-        </PageNav>
+          </button>
+        </div>
         <Footer />
-      </HomeMain>
+      </div>
     )
   }
 }
 
 export default Home
+
