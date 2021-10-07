@@ -7,29 +7,7 @@ import Header from '../Header'
 import Footer from '../footer'
 import CartItem from '../CartItem'
 
-import {
-  CartMain,
-  CartCon,
-  NoItem,
-  NoOrder,
-  Empty,
-  OrderBtn,
-  EmptyImg,
-  TotalPriceCon,
-  PriceCon,
-  PriceLine,
-  Cost,
-  Rupees,
-  Hr,
-  CartHeading,
-  CartItemsList,
-  CartItemLi,
-  PlaceOrder,
-  PaymentMain,
-  PayHeading,
-  ThankU,
-  HomeBtn,
-} from './styledComponents'
+import './index.css'
 
 class Cart extends Component {
   state = {
@@ -51,7 +29,12 @@ class Cart extends Component {
           const reducer = (previousValue, currentValue) =>
             previousValue + currentValue
           const price = priceList.reduce(reducer)
-          return <Rupees data-testid="total-price">{`${price}.00`}</Rupees>
+          return (
+            <h1
+              className="Rupees"
+              data-testid="total-price"
+            >{`${price}.00`}</h1>
+          )
         }
         const onOrderPlaced = () => {
           localStorage.clear()
@@ -63,65 +46,80 @@ class Cart extends Component {
 
         if (cartList.length === 0 && orderPlace === false) {
           return (
-            <NoItem>
-              <EmptyImg
+            <div className="NoItem">
+              <img
+                className="EmptyImg"
                 alt="empty cart"
                 src="https://res.cloudinary.com/dclxp4bb4/image/upload/v1633225925/tastyKitchen/Layer_2_pt2cfs.png"
               />
-              <NoOrder>No Orders Yet!</NoOrder>
-              <Empty>Your cart is empty. Add something from the menu.</Empty>
-              <OrderBtn onClick={this.onOrderNow} type="button">
+              <h1 className="NoOrder">No Orders Yet!</h1>
+              <p className="Empty">
+                Your cart is empty. Add something from the menu.
+              </p>
+              <button
+                className="OrderBtn"
+                onClick={this.onOrderNow}
+                type="button"
+              >
                 Order Now
-              </OrderBtn>
-            </NoItem>
+              </button>
+            </div>
           )
         }
 
         if (orderPlace) {
           return (
             <div>
-              <PaymentMain>
+              <div className="PaymentMain">
                 <FaCheckCircle fontSize={45} color="#22C55E" />
-                <PayHeading>Payment Successful</PayHeading>
-                <ThankU>
+                <h1 className="PayHeading">Payment Successful</h1>
+                <p className="ThankU">
                   Thank you for ordering <br /> Your payment is successfully
                   completed.
-                </ThankU>
-                <HomeBtn type="button" onClick={this.onOrderNow}>
+                </p>
+                <button
+                  className="HomeBtn"
+                  type="button"
+                  onClick={this.onOrderNow}
+                >
                   Go To Home Page
-                </HomeBtn>
-              </PaymentMain>
+                </button>
+              </div>
             </div>
           )
         }
         return (
-          <TotalPriceCon>
-            <PriceCon>
-              <CartHeading>
+          <div className="TotalPriceCon">
+            <div className="PriceCon">
+              <ul className="CartHeading">
                 <li>Item</li>
                 <li>Quantity</li>
                 <li>Price</li>
-              </CartHeading>
-              <CartItemsList>
+              </ul>
+              <ul className="CartItemsList">
                 {cartList.map(each => (
-                  <CartItemLi key={each.id}>
+                  <li className="CartItemLi" key={each.id}>
                     <CartItem item={each} />
-                  </CartItemLi>
+                  </li>
                 ))}
-              </CartItemsList>
-              <Hr />
-              <PriceLine>
-                <Cost>Order Total :</Cost>
-                <Rupees>
+              </ul>
+              <hr className="Hr" />
+              <div className="PriceLine">
+                <h1 className="Cost">Order Total :</h1>
+                <div className="Rupees">
                   <BiRupee /> {totalCost()}
-                </Rupees>
-              </PriceLine>
-              <PlaceOrder onClick={onOrderPlaced} type="button">
+                </div>
+              </div>
+              <button
+                className="PlaceOrder"
+                onClick={onOrderPlaced}
+                type="button"
+              >
                 Place Order
-              </PlaceOrder>
-            </PriceCon>
+              </button>
+            </div>
             <Footer />
-          </TotalPriceCon>
+          </div>
         )
       }}
     </MainContext.Consumer>
@@ -129,12 +127,13 @@ class Cart extends Component {
 
   render() {
     return (
-      <CartMain>
+      <div className="CartMain">
         <Header />
-        <CartCon>{this.renderCart()}</CartCon>
-      </CartMain>
+        <div className="CartCon">{this.renderCart()}</div>
+      </div>
     )
   }
 }
 
 export default withRouter(Cart)
+
