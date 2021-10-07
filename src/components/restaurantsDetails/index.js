@@ -4,27 +4,11 @@ import Loader from 'react-loader-spinner'
 import {AiFillStar} from 'react-icons/ai'
 import {BiRupee} from 'react-icons/bi'
 
-import {
-  DetailsMain,
-  RestaurantMain,
-  RestaurantBanner,
-  BannerDetails,
-  RattingANdRupee,
-  BannerBottom,
-  BannerImg,
-  BannerName,
-  BannerCuisine,
-  BannerRating,
-  BannerReviews,
-  BannerInner,
-  FoodList,
-  FoodItemCon,
-  RestaurantsDetailsLoader,
-} from './styledComponents'
-
 import Header from '../Header'
 import FoodItemDetails from '../foodItemDetails'
 import Footer from '../footer'
+
+import './index.css'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -90,47 +74,53 @@ class RestaurantDetails extends Component {
   RenderFoodListSuccess = () => {
     const {restaurantDetails, foodItems} = this.state
     return (
-      <RestaurantMain>
-        <RestaurantBanner>
-          <BannerInner>
-            <BannerImg alt="restaurant" src={restaurantDetails[0].imageUrl} />
-            <BannerDetails>
-              <BannerName>{restaurantDetails[0].name}</BannerName>
-              <BannerCuisine>{restaurantDetails[0].cuisine}</BannerCuisine>
-              <BannerCuisine>{restaurantDetails[0].location}</BannerCuisine>
-              <BannerBottom>
+      <div className="RestaurantMain">
+        <div className="RestaurantBanner">
+          <div className="BannerInner">
+            <img
+              className="BannerImg"
+              alt="restaurant"
+              src={restaurantDetails[0].imageUrl}
+            />
+            <div className="BannerDetails">
+              <h1 className="BannerName">{restaurantDetails[0].name}</h1>
+              <p className="BannerCuisine">{restaurantDetails[0].cuisine}</p>
+              <p className="BannerCuisine">{restaurantDetails[0].location}</p>
+              <div className="BannerBottom">
                 <div>
-                  <RattingANdRupee>
+                  <div className="RattingANdRupee">
                     <AiFillStar />
-                    <BannerRating>{restaurantDetails[0].rating}</BannerRating>
-                  </RattingANdRupee>
-                  <BannerReviews>
+                    <p className="BannerRating">
+                      {restaurantDetails[0].rating}
+                    </p>
+                  </div>
+                  <p className="BannerReviews">
                     {restaurantDetails[0].reviews}+ Ratings
-                  </BannerReviews>
+                  </p>
                 </div>
                 <hr />
                 <div>
-                  <RattingANdRupee>
+                  <div className="RattingANdRupee">
                     <BiRupee />
-                    <BannerRating>
+                    <p className="BannerRating">
                       {restaurantDetails[0].costForTwo}
-                    </BannerRating>
-                  </RattingANdRupee>
-                  <BannerReviews>Cost for two</BannerReviews>
+                    </p>
+                  </div>
+                  <p className="BannerReviews">Cost for two</p>
                 </div>
-              </BannerBottom>
-            </BannerDetails>
-          </BannerInner>
-        </RestaurantBanner>
-        <FoodList>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul className="FoodList">
           {foodItems[0].map(each => (
-            <FoodItemCon data-testid="foodItem" key={each.id}>
+            <li className="FoodItemCon" data-testid="foodItem" key={each.id}>
               <FoodItemDetails item={each} />
-            </FoodItemCon>
+            </li>
           ))}
-        </FoodList>
+        </ul>
         <Footer />
-      </RestaurantMain>
+      </div>
     )
   }
 
@@ -141,11 +131,14 @@ class RestaurantDetails extends Component {
         return this.RenderFoodListSuccess()
       case apiStatusConstants.inProgress:
         return (
-          <RestaurantsDetailsLoader data-testid="restaurant-details-loader">
+          <div
+            className="RestaurantsDetailsLoader"
+            data-testid="restaurant-details-loader"
+          >
             <div className="products-loader-container">
               <Loader type="Oval" color="#F7931E" height="50" width="50" />
             </div>
-          </RestaurantsDetailsLoader>
+          </div>
         )
       case apiStatusConstants.failure:
         return <h1>fail</h1>
@@ -156,12 +149,13 @@ class RestaurantDetails extends Component {
 
   render() {
     return (
-      <DetailsMain>
-        <Header />
+      <div className="DetailsMain">
+        <Header activeTab="Home" />
         <div>{this.renderFoodItemsList()}</div>
-      </DetailsMain>
+      </div>
     )
   }
 }
 
 export default RestaurantDetails
+
