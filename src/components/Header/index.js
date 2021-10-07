@@ -4,32 +4,11 @@ import Cookies from 'js-cookie'
 import {GiHamburgerMenu} from 'react-icons/gi'
 import {AiFillCloseCircle} from 'react-icons/ai'
 
-import {
-  LogoTitle,
-  LinksCon,
-  LogoImg,
-  LogOutBtn,
-  LogCon,
-  HearCon,
-  HeaderMain,
-  HeaderItems,
-  HamburgerBtn,
-  SmallMenu,
-  SmallLinks,
-} from './styledComponents'
+import './index.css'
 
 class Header extends Component {
   state = {
-    activeLink: 'Home',
     showNavMenu: false,
-  }
-
-  onHome = () => {
-    this.setState({activeLink: 'Home'})
-  }
-
-  onCart = () => {
-    this.setState({activeLink: 'Cart'})
   }
 
   onLogOut = () => {
@@ -45,30 +24,36 @@ class Header extends Component {
   }
 
   render() {
-    const {activeLink, showNavMenu} = this.state
+    const {showNavMenu} = this.state
+    const {activeTab} = this.props
     return (
-      <HeaderMain show={showNavMenu}>
-        <HearCon>
+      <div className="HeaderMain">
+        <div className="HearCon">
           <Link style={{textDecoration: 'none'}} to="/">
-            <LogCon>
-              <LogoImg
+            <div className="LogCon">
+              <img
+                className="LogoImg"
                 width={40}
                 alt="website logo"
                 src="https://res.cloudinary.com/dclxp4bb4/image/upload/v1632732181/tastyKitchen/Group_7420_vfqhmf.png"
               />
-              <LogoTitle>Tasty Kitchens</LogoTitle>
-            </LogCon>
+              <h1 className="LogoTitle">Tasty Kitchens</h1>
+            </div>
           </Link>
-          <HamburgerBtn onClick={this.onShowNav} type="button">
+          <button
+            className="HamburgerBtn"
+            onClick={this.onShowNav}
+            type="button"
+          >
             <GiHamburgerMenu />
-          </HamburgerBtn>
-          <LinksCon>
-            <HeaderItems>
+          </button>
+          <div className="LinksCon">
+            <ul className="HeaderItems">
               <li>
                 <Link
                   onClick={this.onHome}
                   style={{
-                    color: activeLink === 'Home' ? '#F7931E' : '#334155',
+                    color: activeTab === 'Home' ? '#F7931E' : '#334155',
                     textDecoration: 'none',
                   }}
                   to="/"
@@ -80,7 +65,7 @@ class Header extends Component {
                 <Link
                   onClick={this.onCart}
                   style={{
-                    color: activeLink === 'Cart' ? '#F7931E' : '#334155',
+                    color: activeTab === 'Cart' ? '#F7931E' : '#334155',
                     textDecoration: 'none',
                   }}
                   to="/cart"
@@ -88,20 +73,20 @@ class Header extends Component {
                   Cart
                 </Link>
               </li>
-            </HeaderItems>
+            </ul>
 
-            <LogOutBtn onClick={this.onLogOut} type="button">
+            <button className="LogOutBtn" onClick={this.onLogOut} type="button">
               Logout
-            </LogOutBtn>
-          </LinksCon>
-        </HearCon>
+            </button>
+          </div>
+        </div>
         {showNavMenu ? (
-          <SmallMenu>
-            <SmallLinks>
+          <div className="SmallMenu">
+            <div className="SmallLinks">
               <Link
                 onClick={this.onHome}
                 style={{
-                  color: activeLink === 'Home' ? '#F7931E' : '#334155',
+                  color: activeTab === 'Home' ? '#F7931E' : '#334155',
                   textDecoration: 'none',
                 }}
                 to="/"
@@ -111,18 +96,18 @@ class Header extends Component {
               <Link
                 onClick={this.onCart}
                 style={{
-                  color: activeLink === 'Cart' ? '#F7931E' : '#334155',
+                  color: activeTab === 'Cart' ? '#F7931E' : '#334155',
                   textDecoration: 'none',
                 }}
                 to="/cart"
               >
                 Cart
               </Link>
-            </SmallLinks>
+            </div>
             <AiFillCloseCircle />
-          </SmallMenu>
+          </div>
         ) : null}
-      </HeaderMain>
+      </div>
     )
   }
 }
