@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {BiRupee} from 'react-icons/bi'
 import {FaCheckCircle} from 'react-icons/fa'
 import MainContext from '../../context/MainContext'
@@ -14,28 +14,29 @@ class Cart extends Component {
     orderPlace: false,
   }
 
-  onOrderNow = () => {
-    const {history} = this.props
-    history.replace('/')
-  }
-
   renderCart = () => (
     <MainContext.Consumer>
       {value => {
-        const {cartList, clearCartList} = value
+        const {clearCartList} = value
+        const localList = JSON.parse(localStorage.getItem('cartData'))
+        const formattedData = localList === null ? [] : localList
         const {orderPlace} = this.state
+
         const totalCost = () => {
-          const priceList = cartList.map(each => each.count * each.cost)
+          const priceList = formattedData.map(each => each.count * each.cost)
           const reducer = (previousValue, currentValue) =>
             previousValue + currentValue
           const price = priceList.reduce(reducer)
           return (
-            <h1
-              className="Rupees"
-              data-testid="total-price"
-            >{`${price}.00`}</h1>
+            <div className="Rupees">
+              <h1 className="Rupees" data-testid="total-price">
+                {price}
+              </h1>
+              <h1 className="Rupees">.00</h1>
+            </div>
           )
         }
+
         const onOrderPlaced = () => {
           localStorage.clear()
           this.setState(prevState => ({
@@ -44,7 +45,7 @@ class Cart extends Component {
           clearCartList()
         }
 
-        if (cartList.length === 0 && orderPlace === false) {
+        if (formattedData.length === 0 && orderPlace === false) {
           return (
             <div className="NoItem">
               <img
@@ -52,17 +53,15 @@ class Cart extends Component {
                 alt="empty cart"
                 src="https://res.cloudinary.com/dclxp4bb4/image/upload/v1633225925/tastyKitchen/Layer_2_pt2cfs.png"
               />
-              <h1 className="NoOrder">No Orders Yet!</h1>
+              <h1 className="NoOrder">No Order Yet!</h1>
               <p className="Empty">
                 Your cart is empty. Add something from the menu.
               </p>
-              <button
-                className="OrderBtn"
-                onClick={this.onOrderNow}
-                type="button"
-              >
-                Order Now
-              </button>
+              <Link to="/">
+                <button className="OrderBtn" type="button">
+                  Order Now
+                </button>
+              </Link>
             </div>
           )
         }
@@ -77,13 +76,11 @@ class Cart extends Component {
                   Thank you for ordering <br /> Your payment is successfully
                   completed.
                 </p>
-                <button
-                  className="HomeBtn"
-                  type="button"
-                  onClick={this.onOrderNow}
-                >
-                  Go To Home Page
-                </button>
+                <Link to="/">
+                  <button className="HomeBtn" type="button">
+                    Go To Home Page
+                  </button>
+                </Link>
               </div>
             </div>
           )
@@ -97,7 +94,7 @@ class Cart extends Component {
                 <li>Price</li>
               </ul>
               <ul className="CartItemsList">
-                {cartList.map(each => (
+                {formattedData.map(each => (
                   <li className="CartItemLi" key={each.id}>
                     <CartItem item={each} />
                   </li>
@@ -105,7 +102,7 @@ class Cart extends Component {
               </ul>
               <hr className="Hr" />
               <div className="PriceLine">
-                <h1 className="Cost">Order Total :</h1>
+                <h1 className="Cost">Order Total:</h1>
                 <div className="Rupees">
                   <BiRupee /> {totalCost()}
                 </div>
@@ -128,12 +125,11 @@ class Cart extends Component {
   render() {
     return (
       <div className="CartMain">
-        <Header />
+        <Header activeTab="Cart" />
         <div className="CartCon">{this.renderCart()}</div>
       </div>
     )
   }
 }
 
-export default withRouter(Cart)
-
+export default Cart
