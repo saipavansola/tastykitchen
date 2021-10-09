@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Redirect, withRouter} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import './index.css'
@@ -13,10 +13,11 @@ class Login extends Component {
   }
 
   onLoginSuccess = token => {
-    const {history} = this.props
     Cookies.set('jwt_token', token, {
       expires: 30,
+      path: '/',
     })
+    const {history} = this.props
     history.replace('/')
   }
 
@@ -71,16 +72,15 @@ class Login extends Component {
         </div>
         <div className="loginCon">
           <div className="formCon">
+            <div className="logoCon">
+              <img
+                alt="website logo"
+                src="https://res.cloudinary.com/dclxp4bb4/image/upload/v1632732181/tastyKitchen/Group_7420_vfqhmf.png"
+              />
+              <h1 className="logoName">Tasty Kitchens</h1>
+              <h1 className="loginName">Login</h1>
+            </div>
             <form onSubmit={this.onSubmitForm}>
-              <div className="logoCon">
-                <img
-                  alt="website logo"
-                  src="https://res.cloudinary.com/dclxp4bb4/image/upload/v1632732181/tastyKitchen/Group_7420_vfqhmf.png"
-                />
-                <h1 className="logoName">Tasty Kitchens</h1>
-                <h1 className="loginName">Login</h1>
-              </div>
-
               <div className="inputCon">
                 <label htmlFor="username">USERNAME</label>
                 <input
@@ -120,5 +120,6 @@ class Login extends Component {
   }
 }
 
-export default withRouter(Login)
+export default Login
+
 
