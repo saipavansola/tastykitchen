@@ -82,34 +82,36 @@ class RestaurantDetails extends Component {
               alt="restaurant"
               src={restaurantDetails[0].imageUrl}
             />
-            <div className="BannerDetails">
-              <h1 className="BannerName">{restaurantDetails[0].name}</h1>
-              <p className="BannerCuisine">{restaurantDetails[0].cuisine}</p>
-              <p className="BannerCuisine">{restaurantDetails[0].location}</p>
-              <div className="BannerBottom">
-                <div>
-                  <div className="RattingANdRupee">
-                    <AiFillStar />
-                    <p className="BannerRating">
-                      {restaurantDetails[0].rating}
+            <ul className="BannerDetails">
+              <li>
+                <h1 className="BannerName">{restaurantDetails[0].name}</h1>
+                <p className="BannerCuisine">{restaurantDetails[0].cuisine}</p>
+                <p className="BannerCuisine">{restaurantDetails[0].location}</p>
+                <div className="BannerBottom">
+                  <div>
+                    <div className="RattingANdRupee">
+                      <AiFillStar />
+                      <p className="BannerRating">
+                        {restaurantDetails[0].rating}
+                      </p>
+                    </div>
+                    <p className="BannerReviews">
+                      {restaurantDetails[0].reviews}+ Ratings
                     </p>
                   </div>
-                  <p className="BannerReviews">
-                    {restaurantDetails[0].reviews}+ Ratings
-                  </p>
-                </div>
-                <hr />
-                <div>
-                  <div className="RattingANdRupee">
-                    <BiRupee />
-                    <p className="BannerRating">
-                      {restaurantDetails[0].costForTwo}
-                    </p>
+                  <hr />
+                  <div>
+                    <div className="RattingANdRupee">
+                      <BiRupee />
+                      <p className="BannerRating">
+                        {restaurantDetails[0].costForTwo}
+                      </p>
+                    </div>
+                    <p className="BannerReviews">Cost for two</p>
                   </div>
-                  <p className="BannerReviews">Cost for two</p>
                 </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
         <ul className="FoodList">
