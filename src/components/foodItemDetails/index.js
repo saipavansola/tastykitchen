@@ -12,7 +12,6 @@ class FoodItemDetails extends Component {
     <MainContext.Consumer>
       {value => {
         const {cartList, increaseCount, decreaseCount, onAddToCart} = value
-        localStorage.clear()
         const AddItem = () => {
           const {item} = this.props
           const newItem = {
