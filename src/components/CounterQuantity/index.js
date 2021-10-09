@@ -2,14 +2,46 @@ import {Component} from 'react'
 
 import './index.css'
 
-class Counter extends Component {
+class CounterQuantity extends Component {
   onIncrement = () => {
-    const {incCount} = this.props
+    const {itemName, incCount} = this.props
+    const localList = JSON.parse(localStorage.getItem('cartData'))
+    const newList = localList.filter(each => each.name !== itemName)
+    const incList = localList.filter(each => each.name === itemName)
+    const IncItemCount = [
+      ...newList,
+      {
+        id: incList[0].id,
+        cost: incList[0].cost,
+        count: incList[0].count + 1,
+        imageUrl: incList[0].imageUrl,
+        name: incList[0].name,
+      },
+    ]
+    localStorage.setItem('cartData', JSON.stringify(IncItemCount))
     incCount()
   }
 
   onDecrement = () => {
-    const {decCount} = this.props
+    const {itemName, decCount} = this.props
+    const localList = JSON.parse(localStorage.getItem('cartData'))
+    const newList = localList.filter(each => each.name !== itemName)
+    const incList = localList.filter(each => each.name === itemName)
+    if (incList[0].count > 1) {
+      const decItemCount = [
+        ...newList,
+        {
+          id: incList[0].id,
+          cost: incList[0].cost,
+          count: incList[0].count - 1,
+          imageUrl: incList[0].imageUrl,
+          name: incList[0].name,
+        },
+      ]
+      localStorage.setItem('cartData', JSON.stringify(decItemCount))
+    } else {
+      localStorage.setItem('cartData', JSON.stringify([...newList]))
+    }
     decCount()
   }
 
@@ -25,7 +57,9 @@ class Counter extends Component {
         >
           -
         </button>
-        <div data-testid="item-quantity">{count}</div>
+        <p className="count" data-testid="item-quantity">
+          {count}
+        </p>
         <button
           data-testid="increment-quantity"
           className="btn"
@@ -39,4 +73,4 @@ class Counter extends Component {
   }
 }
 
-export default Counter
+export default CounterQuantity
