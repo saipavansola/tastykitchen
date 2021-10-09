@@ -25,7 +25,9 @@ class Counter extends Component {
         >
           -
         </button>
-        <div data-testid="active-count">{count}</div>
+        <p className="count" data-testid="active-count">
+          {count}
+        </p>
         <button
           data-testid="increment-count"
           className="btn"
