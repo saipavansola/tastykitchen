@@ -9,17 +9,12 @@ import NotFound from './components/NotFound'
 import MainContext from './context/MainContext'
 import './App.css'
 
+const localList = JSON.parse(localStorage.getItem('cartData'))
+const formattedData = localList === null ? [] : localList
+
 class App extends Component {
   state = {
-    cartList: [],
-  }
-
-  componentDidMount() {
-    const {cartList} = this.state
-    const localList = JSON.parse(localStorage.getItem('cartData'))
-    if (cartList.length === 0 && localList !== null) {
-      this.setState({cartList: localList})
-    }
+    cartList: formattedData,
   }
 
   clearCartList = () => {
@@ -73,7 +68,6 @@ class App extends Component {
 
   render() {
     const {cartList} = this.state
-    console.log(cartList)
     if (cartList.length > 0) {
       localStorage.setItem('cartData', JSON.stringify(cartList))
     }
