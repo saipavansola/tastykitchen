@@ -8,7 +8,7 @@ class CartItem extends Component {
   renderCartItemCount = name => (
     <MainContext.Consumer>
       {value => {
-        const {cartList, increaseCount, decreaseCount} = value
+        const {increaseCount, decreaseCount} = value
         const incItemCount = () => {
           const {item} = this.props
           increaseCount(item.name)
@@ -17,14 +17,15 @@ class CartItem extends Component {
           const {item} = this.props
           decreaseCount(item.name)
         }
-        const itemInCart = cartList.filter(each => each.name === name)
-
+        const localList = JSON.parse(localStorage.getItem('cartData'))
+        const formattedList = localList === null ? [] : localList
+        const itemInCart = formattedList.filter(each => each.name === name)
         return (
           <CounterQuantity
-            id={itemInCart[0].id}
             incCount={incItemCount}
             decCount={decItemCount}
             count={itemInCart[0].count}
+            itemName={itemInCart[0].name}
           />
         )
       }}
@@ -35,20 +36,19 @@ class CartItem extends Component {
     const {item} = this.props
     return (
       <div className="CartItemMain">
-        <img className="CartItemImg" alt="foodItem" src={item.imageUrl} />
+        <img className="CartItemImg" alt={item.name} src={item.imageUrl} />
         <div className="QAndP">
           <h1 className="CartItemName">{item.name}</h1>
           <div className="CounterComp">
             {this.renderCartItemCount(item.name)}
           </div>
-          <h1 className="CartItemCost">
+          <p className="CartItemCost">
             <BiRupee />
             {item.count * item.cost}.00
-          </h1>
+          </p>
         </div>
       </div>
     )
   }
 }
 export default CartItem
-
