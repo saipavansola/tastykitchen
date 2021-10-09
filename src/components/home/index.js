@@ -153,7 +153,7 @@ class Home extends Component {
 
   onForward = () => {
     const {activePage} = this.state
-    if (activePage < 20) {
+    if (activePage < 4) {
       this.setState(
         prevState => ({
           activePage: prevState.activePage + 1,
@@ -280,9 +280,10 @@ class Home extends Component {
           >
             <IoIosArrowBack />
           </button>
-          <h1 className="page " data-testid="active-page-number">
-            {activePage} of 20
-          </h1>
+          <div className="page">
+            <p data-testid="active-page-number">{activePage}</p> <p>of</p>
+            <p>4</p>
+          </div>
           <button
             className="PageBtn"
             data-testid="pagination-right-button"
@@ -299,4 +300,3 @@ class Home extends Component {
 }
 
 export default Home
-
