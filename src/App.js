@@ -1,5 +1,5 @@
 import {Component} from 'react'
-import {Switch, Redirect, BrowserRouter, Route} from 'react-router-dom'
+import {Switch, Redirect, Route} from 'react-router-dom'
 import Login from './components/LoginRoute'
 import Home from './components/home'
 import Cart from './components/Cart'
@@ -17,6 +17,11 @@ class App extends Component {
     cartList: formattedData,
   }
 
+  getData = () => {
+    const NLocalList = JSON.parse(localStorage.getItem('cartData'))
+    this.setState({cartList: NLocalList})
+  }
+
   clearCartList = () => {
     this.setState({cartList: []})
   }
@@ -27,6 +32,7 @@ class App extends Component {
   }
 
   increaseCount = name => {
+    console.log(name)
     const {cartList} = this.state
     const newList = cartList.filter(each => each.name !== name)
     const incList = cartList.filter(each => each.name === name)
@@ -72,30 +78,29 @@ class App extends Component {
       localStorage.setItem('cartData', JSON.stringify(cartList))
     }
     return (
-      <BrowserRouter>
-        <MainContext.Provider
-          value={{
-            cartList,
-            onAddToCart: this.onAddToCart,
-            increaseCount: this.increaseCount,
-            decreaseCount: this.decreaseCount,
-            clearCartList: this.clearCartList,
-          }}
-        >
-          <Switch>
-            <Route exact path="/login" component={Login} />
-            <ProtectedRoute exact path="/" component={Home} />
-            <ProtectedRoute exact path="/cart" component={Cart} />
-            <ProtectedRoute
-              exact
-              path="/restaurant/:id"
-              component={RestaurantDetails}
-            />
-            <Route path="/bad-path" component={NotFound} />
-            <Redirect to="/bad-path" />
-          </Switch>
-        </MainContext.Provider>
-      </BrowserRouter>
+      <MainContext.Provider
+        value={{
+          cartList,
+          getData: this.getData,
+          onAddToCart: this.onAddToCart,
+          increaseCount: this.increaseCount,
+          decreaseCount: this.decreaseCount,
+          clearCartList: this.clearCartList,
+        }}
+      >
+        <Switch>
+          <Route exact path="/login" component={Login} />
+          <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/cart" component={Cart} />
+          <ProtectedRoute
+            exact
+            path="/restaurant/:id"
+            component={RestaurantDetails}
+          />
+          <Route path="/bad-path" component={NotFound} />
+          <Redirect to="/bad-path" />
+        </Switch>
+      </MainContext.Provider>
     )
   }
 }
