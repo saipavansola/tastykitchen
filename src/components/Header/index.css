@@ -84,7 +84,7 @@
 }
 .HeaderMain {
   width: 100%;
-  height: 98px;
+  min-height: 98px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,8 +92,8 @@
 }
 @media (max-width: 768px) {
   .HeaderMain {
-    display: flex;
     height: auto;
+    display: flex;
     flex-direction: column;
   }
 }
