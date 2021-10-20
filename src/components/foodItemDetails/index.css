@@ -1,7 +1,14 @@
 .ItemMain {
   display: flex;
   align-items: center;
+  padding: 10px;
+  border-radius: 10px;
 }
+
+.ItemMain:hover {
+  box-shadow: 0px 0px 20px 0px rgb(207, 206, 206);
+}
+
 @media (max-width: 768px) {
   .ItemMain {
     width: 100%;
@@ -71,6 +78,8 @@
   line-height: 24px;
   letter-spacing: 0px;
   text-align: left;
+  display: flex;
+  align-items: center;
   margin: 3px;
 }
 @media (max-width: 768px) {
@@ -137,4 +146,3 @@
   display: flex;
   align-items: center;
 }
-
