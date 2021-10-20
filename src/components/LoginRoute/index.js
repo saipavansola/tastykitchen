@@ -12,12 +12,13 @@ class Login extends Component {
     errorMsg: '',
   }
 
-  onLoginSuccess = token => {
-    Cookies.set('jwt_token', token, {
+  onLoginSuccess = jwtToken => {
+    const {history} = this.props
+    Cookies.set('jwt_token', jwtToken, {
       expires: 30,
       path: '/',
     })
-    const {history} = this.props
+
     history.replace('/')
   }
 
@@ -121,5 +122,3 @@ class Login extends Component {
 }
 
 export default Login
-
-
