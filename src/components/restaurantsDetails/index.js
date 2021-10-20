@@ -160,4 +160,3 @@ class RestaurantDetails extends Component {
 }
 
 export default RestaurantDetails
-
