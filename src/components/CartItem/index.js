@@ -8,14 +8,12 @@ class CartItem extends Component {
   renderCartItemCount = name => (
     <MainContext.Consumer>
       {value => {
-        const {increaseCount, decreaseCount} = value
+        const {getData} = value
         const incItemCount = () => {
-          const {item} = this.props
-          increaseCount(item.name)
+          getData()
         }
         const decItemCount = () => {
-          const {item} = this.props
-          decreaseCount(item.name)
+          getData()
         }
         const localList = JSON.parse(localStorage.getItem('cartData'))
         const formattedList = localList === null ? [] : localList
