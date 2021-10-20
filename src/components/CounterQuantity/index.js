@@ -8,17 +8,18 @@ class CounterQuantity extends Component {
     const localList = JSON.parse(localStorage.getItem('cartData'))
     const newList = localList.filter(each => each.name !== itemName)
     const incList = localList.filter(each => each.name === itemName)
-    const IncItemCount = [
-      ...newList,
-      {
-        id: incList[0].id,
-        cost: incList[0].cost,
-        count: incList[0].count + 1,
-        imageUrl: incList[0].imageUrl,
-        name: incList[0].name,
-      },
-    ]
-    localStorage.setItem('cartData', JSON.stringify(IncItemCount))
+    const tList = localList.findIndex(item => item.id === incList[0].id)
+    const IncItemCount = {
+      id: incList[0].id,
+      cost: incList[0].cost,
+      count: incList[0].count + 1,
+      imageUrl: incList[0].imageUrl,
+      name: incList[0].name,
+    }
+
+    newList.splice(tList, 0, IncItemCount)
+    localStorage.setItem('cartData', JSON.stringify(newList))
+
     incCount()
   }
 
@@ -28,17 +29,16 @@ class CounterQuantity extends Component {
     const newList = localList.filter(each => each.name !== itemName)
     const incList = localList.filter(each => each.name === itemName)
     if (incList[0].count > 1) {
-      const decItemCount = [
-        ...newList,
-        {
-          id: incList[0].id,
-          cost: incList[0].cost,
-          count: incList[0].count - 1,
-          imageUrl: incList[0].imageUrl,
-          name: incList[0].name,
-        },
-      ]
-      localStorage.setItem('cartData', JSON.stringify(decItemCount))
+      const tList = localList.findIndex(item => item.id === incList[0].id)
+      const decItemCount = {
+        id: incList[0].id,
+        cost: incList[0].cost,
+        count: incList[0].count - 1,
+        imageUrl: incList[0].imageUrl,
+        name: incList[0].name,
+      }
+      newList.splice(tList, 0, decItemCount)
+      localStorage.setItem('cartData', JSON.stringify(newList))
     } else {
       localStorage.setItem('cartData', JSON.stringify([...newList]))
     }
