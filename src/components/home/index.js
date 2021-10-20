@@ -38,7 +38,6 @@ class Home extends Component {
     restaurantsApiStatus: apiStatusConstants.initial,
     offersList: [],
     restaurantsList: [],
-    limit: 9,
     activePage: 1,
     initialSortValue: sortByOptions[1].value,
   }
@@ -50,7 +49,8 @@ class Home extends Component {
 
   getRestaurants = async () => {
     this.setState({restaurantsApiStatus: apiStatusConstants.inProgress})
-    const {activePage, limit, initialSortValue} = this.state
+    const limit = 9
+    const {activePage, initialSortValue} = this.state
     const offset = (activePage - 1) * limit
     const jwtToken = Cookies.get('jwt_token')
     const apiUrl = `https://apis.ccbp.in/restaurants-list?sort_by_rating=${initialSortValue}&offset=${offset}&limit=${limit}`
@@ -195,11 +195,11 @@ class Home extends Component {
                   <div className="DetailsCon">
                     <h1 className="RestaurantName">{each.name}</h1>
                     <p className="FastFood">{each.cuisine}</p>
+                    <p className="FastFood">Reviews: {each.totalReviews}</p>
                     <div className="RatingCon">
                       <AiFillStar color="#FFCC00" />{' '}
                       <p className="Rating">{each.rating}</p>
                     </div>
-                    <p className="Rating">Reviews: {each.totalReviews}</p>
                   </div>
                 </div>
               </Link>
@@ -284,6 +284,7 @@ class Home extends Component {
             <p data-testid="active-page-number">{activePage}</p> <p>of</p>
             <p>4</p>
           </div>
+
           <button
             className="PageBtn"
             data-testid="pagination-right-button"
