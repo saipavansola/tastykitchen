@@ -29,10 +29,10 @@ class Cart extends Component {
           const price = priceList.reduce(reducer)
           return (
             <div className="Rupees">
-              <h1 className="Rupees" data-testid="total-price">
+              <p className="Rupees" testid="total-price">
                 {price}
-              </h1>
-              <h1 className="Rupees">.00</h1>
+              </p>
+              <p className="Rupees">.00</p>
             </div>
           )
         }
@@ -133,4 +133,3 @@ class Cart extends Component {
 }
 
 export default Cart
-

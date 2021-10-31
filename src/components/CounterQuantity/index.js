@@ -50,18 +50,18 @@ class CounterQuantity extends Component {
     return (
       <div className="btnCon">
         <button
-          data-testid="decrement-quantity"
+          testid="decrement-quantity"
           className="btn"
           type="button"
           onClick={this.onDecrement}
         >
           -
         </button>
-        <p className="count" data-testid="item-quantity">
+        <p className="count" testid="item-quantity">
           {count}
         </p>
         <button
-          data-testid="increment-quantity"
+          testid="increment-quantity"
           className="btn"
           type="button"
           onClick={this.onIncrement}

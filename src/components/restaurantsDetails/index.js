@@ -116,7 +116,7 @@ class RestaurantDetails extends Component {
         </div>
         <ul className="FoodList">
           {foodItems[0].map(each => (
-            <li className="FoodItemCon" data-testid="foodItem" key={each.id}>
+            <li className="FoodItemCon" testid="foodItem" key={each.id}>
               <FoodItemDetails item={each} />
             </li>
           ))}
@@ -135,7 +135,7 @@ class RestaurantDetails extends Component {
         return (
           <div
             className="RestaurantsDetailsLoader"
-            data-testid="restaurant-details-loader"
+            testid="restaurant-details-loader"
           >
             <div className="products-loader-container">
               <Loader type="Oval" color="#F7931E" height="50" width="50" />

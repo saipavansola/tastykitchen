@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 
 import './index.css'
 
-class Login extends Component {
+class LoginRoute extends Component {
   state = {
     username: '',
     password: '',
@@ -64,12 +64,7 @@ class Login extends Component {
     return (
       <div className="loginMain">
         <div className="small">
-          <h1 className="smallLoginName">Login</h1>
-          <img
-            className="smallLander"
-            alt="website logo"
-            src="https://res.cloudinary.com/dclxp4bb4/image/upload/v1632741497/tastyKitchen/Rectangle_1457_g9q8hv.png"
-          />
+          <h1>pass</h1>
         </div>
         <div className="loginCon">
           <div className="formCon">
@@ -121,4 +116,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default LoginRoute
